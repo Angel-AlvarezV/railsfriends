@@ -1,0 +1,38 @@
+  <% if user_signed_in? %>
+  
+  <table class="table table-striped table-bordered table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Twitter</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @friends.each do |friend| %>
+      <% if friend.user_id == current_user.id%>
+      
+        <tr>
+          <td><%= link_to friend.first_name + " " + friend.last_name, friend %></td>
+          <td><%= friend.email %></td>
+          <td><%= friend.phone %></td>
+          <td><%= friend.twitter %></td>
+          <td class="d-flex justify-content-center">
+            <%= button_to "Delete", friend, method: :delete , form: { data: { turbo_confirm: 'Are you sure?' } }, class: "btn btn-outline-danger btn-sm" %>
+          </td>
+        </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+
+<%= link_to "New friend", new_friend_path, class:"btn btn-primary" %>
+<% else %>
+  <h1>Home Page</h1>
+  Rails webpage!
+<% end %>
+
